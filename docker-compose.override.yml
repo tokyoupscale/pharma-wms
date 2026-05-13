@@ -1,0 +1,30 @@
+# Файл применяется автоматически при `docker compose up` (только для разработки).
+# В продакшне: docker compose -f docker-compose.yml up --build
+
+services:
+  db:
+    ports:
+      - "5432:5432"   # Открываем порт для локального доступа через psql/pgAdmin
+
+  backend:
+    environment:
+      - ENVIRONMENT=development
+      - REGISTER_ENABLED=true
+    ports:
+      - "8000:8000"   # Прямой доступ к API/Swagger в режиме разработки
+    volumes:
+      - ./backend:/app   # hot reload
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    # В dev-режиме переопределяем образ на Node.js с Vite dev server
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    environment:
+      - BACKEND_URL=http://backend:8000
+    volumes:
+      - ./frontend/src:/app/src   # hot reload фронтенда
+    command: ["npm", "run", "dev", "--", "--host"]
