@@ -97,32 +97,29 @@ jobs:
       - name: Build frontend
         run: docker build ./frontend
 
-  # ── Deploy — только main, ждёт оба джоба ─────────────────────────────────
-  deploy:
-    name: Deploy
-    needs: [test, docker-build]
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-
-    environment:
-      name: production
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
-          port: ${{ secrets.DEPLOY_PORT || 22 }}
-          script: |
-            set -e
-            cd ${{ secrets.DEPLOY_PATH }}
-            ./scripts/backup.sh
-            git pull origin main
-            docker compose -f docker-compose.yml build
-            docker compose -f docker-compose.yml run --rm backend alembic upgrade head
-            docker compose -f docker-compose.yml up -d
-            docker compose ps
+  # ── Deploy — закомментирован до настройки production-сервера ───────────────
+  # deploy:
+  #   name: Deploy
+  #   needs: [test, docker-build]
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+  #   environment:
+  #     name: production
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Deploy via SSH
+  #       uses: appleboy/ssh-action@v1.0.3
+  #       with:
+  #         host: ${{ secrets.DEPLOY_HOST }}
+  #         username: ${{ secrets.DEPLOY_USER }}
+  #         key: ${{ secrets.DEPLOY_SSH_KEY }}
+  #         port: ${{ secrets.DEPLOY_PORT || 22 }}
+  #         script: |
+  #           set -e
+  #           cd ${{ secrets.DEPLOY_PATH }}
+  #           ./scripts/backup.sh
+  #           git pull origin main
+  #           docker compose -f docker-compose.yml build
+  #           docker compose -f docker-compose.yml run --rm backend alembic upgrade head
+  #           docker compose -f docker-compose.yml up -d
+  #           docker compose ps
