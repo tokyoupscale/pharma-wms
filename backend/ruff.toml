@@ -1,0 +1,5 @@
+[lint]
+ignore = [
+    "E741",  # ambiguous variable name (l, O, I) — используется в UnitEnum (l = "l" для литров)
+    "E712",  # == True / == False в SQLAlchemy-фильтрах — намеренно, генерирует правильный SQL
+]

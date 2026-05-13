@@ -32,8 +32,8 @@ def create_category(
     if db.query(Category).filter(Category.name == data.name).first():
         raise HTTPException(400, "Категория уже существует")
     obj = Category(name=data.name)
-    db.add(obj); 
-    db.commit(); 
+    db.add(obj) 
+    db.commit() 
     db.refresh(obj)
     return obj
 
@@ -50,7 +50,7 @@ def deactivate_category(
     obj = db.query(Category).filter(Category.id == id).first()
     if not obj: 
         raise HTTPException(404, "Не найдено")
-    obj.is_active = False; 
+    obj.is_active = False 
     db.commit()
 
     return {"ok": True}
@@ -64,8 +64,8 @@ def create_subgroup(
     _: User = Depends(require_role(EDITORS))
 ):
     obj = Subgroup(**data.model_dump())
-    db.add(obj); 
-    db.commit(); 
+    db.add(obj) 
+    db.commit() 
     db.refresh(obj)
     return obj
 
@@ -89,8 +89,8 @@ def create_supplier(
     _: User = Depends(require_role(EDITORS))
 ):
     obj = Supplier(**data.model_dump())
-    db.add(obj); 
-    db.commit(); 
+    db.add(obj) 
+    db.commit() 
     db.refresh(obj)
     return obj
 
@@ -107,7 +107,8 @@ def deactivate_supplier(
     obj = db.query(Supplier).filter(Supplier.id == id).first()
     if not obj: 
         raise HTTPException(404, "Не найдено")
-    obj.is_active = False; db.commit()
+    obj.is_active = False
+    db.commit()
     return {"ok": True}
 
 # --- Products ---
@@ -126,8 +127,8 @@ def create_product(
             raise HTTPException(400, "Подгруппа не принадлежит указанной категории")
     try:
         obj = Product(**data.model_dump())
-        db.add(obj); 
-        db.commit(); 
+        db.add(obj) 
+        db.commit() 
         db.refresh(obj)
         return obj
     except IntegrityError:
@@ -162,7 +163,8 @@ def get_product(
     _: User = Depends(get_current_user)
 ):
     obj = db.query(Product).filter(Product.id == id).first()
-    if not obj: raise HTTPException(404, "Товар не найден")
+    if not obj:
+        raise HTTPException(404, "Товар не найден")
     return ProductOut.from_orm_with_flag(obj)
 
 @router.patch("/products/{id}", response_model=ProductOut)
@@ -179,7 +181,8 @@ def update_product(
     for k, v in data.model_dump(exclude_unset=True).items():
         setattr(obj, k, v)
 
-    db.commit(); db.refresh(obj)
+    db.commit()
+    db.refresh(obj)
     return ProductOut.from_orm_with_flag(obj)
 
 @router.delete("/products/{id}")
@@ -191,5 +194,6 @@ def deactivate_product(
     obj = db.query(Product).filter(Product.id == id).first()
     if not obj: 
         raise HTTPException(404, "Не найдено")
-    obj.is_active = False; db.commit()
+    obj.is_active = False
+    db.commit()
     return {"ok": True}

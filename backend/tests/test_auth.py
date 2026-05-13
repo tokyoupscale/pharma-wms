@@ -15,8 +15,6 @@
 - Token version invalidation
 - Password strength validation
 """
-import pytest
-from tests.conftest import _make_user
 from models.user import UserRole
 
 

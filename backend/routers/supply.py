@@ -54,7 +54,7 @@ def create_supply(
             notes = data.notes,
             created_by = user.id
         )
-        db.add(supply); 
+        db.add(supply) 
         db.flush()
 
         for item_data in data.items:

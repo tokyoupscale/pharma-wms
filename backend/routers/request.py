@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from database import get_db
 from models.request import MaterialRequest, MaterialRequestItem, RequestStatus  # noqa: F401
 from models.expense import Expense, ExpenseType
-from models.limit_card import LimitCard, LimitCardItem, LimitCardStatus
+from models.limit_card import LimitCardItem
 from models.product import Product
 from models.user import User, UserRole
 from schemas.request import (
