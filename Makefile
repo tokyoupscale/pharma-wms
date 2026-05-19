@@ -1,4 +1,4 @@
-.PHONY: help dev down logs shell migrate seed test test-fast lint prod backup restore install-hooks
+.PHONY: help dev down logs shell migrate seed seed-demo test test-fast lint prod backup restore install-hooks
 
 help: ## Показать список команд
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -23,6 +23,9 @@ migrate: ## Применить миграции Alembic
 
 seed: ## Создать admin-пользователя (первый запуск)
 	docker compose exec backend python scripts/seed_admin.py
+
+seed-demo: ## Заполнить БД демо-данными (товары, поставки, ЛЗК, заявки)
+	docker compose exec backend python scripts/seed_demo.py
 
 # ── Тесты ─────────────────────────────────────────────────────────────────────
 
