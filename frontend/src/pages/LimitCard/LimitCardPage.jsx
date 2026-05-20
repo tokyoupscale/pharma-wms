@@ -103,7 +103,7 @@ export default function LimitCardPage() {
         Лимитно-заборные карты
       </Title>
 
-      <Table rowKey="id" columns={cols} dataSource={rows} loading={loading} size="small" pagination={{ pageSize: 20 }} />
+      <Table rowKey="id" columns={cols} dataSource={rows} loading={loading} size="small" pagination={{ pageSize: 20, showTotal: t => `Всего: ${t}` }} />
 
       <Drawer
         title={drawerTitle}

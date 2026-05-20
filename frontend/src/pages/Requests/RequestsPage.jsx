@@ -104,7 +104,7 @@ export default function RequestsPage() {
   }), [rows, filterStatus, filterDept])
 
   const cols = [
-    { title: '№', dataIndex: 'id', width: 60 },
+    { title: '№', width: 60, render: (_, __, index) => index + 1 },
     { title: 'Подразделение', dataIndex: 'department', render: v => DEPARTMENTS.find(d => d.value === v)?.label ?? v },
     { title: 'Создал', dataIndex: 'created_by_name' },
     { title: 'Позиций', width: 80, render: (_, r) => r.items?.length ?? 0 },

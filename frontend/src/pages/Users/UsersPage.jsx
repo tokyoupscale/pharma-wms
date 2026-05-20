@@ -3,7 +3,7 @@ import {
   Table, Button, Modal, Form, Input, Select, Tag, Space,
   Popconfirm, message, Typography, Switch,
 } from 'antd'
-import { PlusOutlined, EditOutlined, KeyOutlined } from '@ant-design/icons'
+import { PlusOutlined, EditOutlined, KeyOutlined, TeamOutlined } from '@ant-design/icons'
 import { getUsers, createUser, updateUser, resetPassword } from '../../api/auth'
 import { useAuthStore } from '../../store/authStore'
 import { ROLE_LABELS, ROLES } from '../../constants'
@@ -148,7 +148,7 @@ export default function UsersPage() {
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-        <Title level={4} style={{ margin: 0 }}>Пользователи</Title>
+        <Title level={4} style={{ margin: 0 }}><TeamOutlined style={{ marginRight: 8 }} />Пользователи</Title>
         {isAdmin && (
           <Button type="primary" icon={<PlusOutlined />} onClick={openCreate}>
             Новый пользователь

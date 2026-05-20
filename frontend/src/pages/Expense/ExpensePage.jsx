@@ -3,7 +3,7 @@ import {
   Table, Button, Modal, Form, Input, Select,
   Typography, Space, Tag, message, DatePicker,
 } from 'antd'
-import { PlusOutlined, StopOutlined, MinusCircleOutlined } from '@ant-design/icons'
+import { PlusOutlined, StopOutlined, ExportOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 import { getExpenses, createExpense, cancelExpense } from '../../api/expense'
 import { getProducts } from '../../api/references'
@@ -89,7 +89,7 @@ export default function ExpensePage() {
   }), [rows, filterType, filterStatus, search])
 
   const cols = [
-    { title: 'ID', dataIndex: 'id', width: 60 },
+    { title: '№', width: 60, render: (_, __, index) => index + 1 },
     { title: 'Товар', dataIndex: 'product_name' },
     { title: 'Подразделение', dataIndex: 'department', render: v => DEPARTMENTS.find(d => d.value === v)?.label ?? v },
     { title: 'Тип', dataIndex: 'expense_type', render: v => EXPENSE_TYPE_LABELS[v] ?? v },
@@ -117,7 +117,7 @@ export default function ExpensePage() {
   return (
     <>
       <Title level={4} style={{ marginTop: 0 }}>
-        <MinusCircleOutlined style={{ marginRight: 8 }} />
+        <ExportOutlined style={{ marginRight: 8 }} />
         Расход товара
       </Title>
 

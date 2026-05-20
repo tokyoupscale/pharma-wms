@@ -183,7 +183,7 @@ function SuppliersTab({ role }) {
           Добавить
         </Button>
       )}
-      <Table rowKey="id" columns={cols} dataSource={rows} loading={loading} size="small" pagination={{ pageSize: 20 }} />
+      <Table rowKey="id" columns={cols} dataSource={rows} loading={loading} size="small" pagination={{ pageSize: 20, showTotal: t => `Всего: ${t}` }} />
       <Modal title="Новый поставщик" open={open} onCancel={() => setOpen(false)} onOk={form.submit} destroyOnClose>
         <Form form={form} layout="vertical" onFinish={handleAdd}>
           <Form.Item name="name" label="Название" rules={[{ required: true }]}>
@@ -283,7 +283,7 @@ function ProductsTab({ role, categories, subgroups }) {
           </Button>
         )}
       </Space>
-      <Table rowKey="id" columns={cols} dataSource={rows} loading={loading} size="small" pagination={{ pageSize: 20 }} />
+      <Table rowKey="id" columns={cols} dataSource={rows} loading={loading} size="small" pagination={{ pageSize: 20, showTotal: t => `Всего: ${t}` }} />
       <Modal title="Новый товар" open={open} onCancel={() => { setOpen(false); form.resetFields() }} onOk={form.submit} destroyOnClose width={560}>
         <Form form={form} layout="vertical" onFinish={handleAdd}>
           <Form.Item name="name" label="Название" rules={[{ required: true }]}>

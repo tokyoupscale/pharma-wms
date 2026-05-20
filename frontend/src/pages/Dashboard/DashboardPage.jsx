@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Row, Col, Card, Statistic, Typography, Spin, theme as antTheme } from 'antd'
 import {
   InboxOutlined, MinusCircleOutlined, OrderedListOutlined, WarningOutlined,
+  DashboardOutlined,
 } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { getDashboardStats } from '../../api/reports'
@@ -62,6 +63,7 @@ export default function DashboardPage() {
   return (
     <>
       <Title level={4} style={{ marginTop: 0, marginBottom: 24 }}>
+        <DashboardOutlined style={{ marginRight: 8 }} />
         Сводка по складу
       </Title>
 
