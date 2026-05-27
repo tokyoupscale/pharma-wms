@@ -22,4 +22,4 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", 
 FROM base AS test
 COPY requirements-dev.txt .
 RUN pip install --no-cache-dir -r requirements-dev.txt
-CMD ["sh", "-c", "alembic upgrade head && python -m pytest tests/ -v --cov=. --cov-report=term-missing --cov-fail-under=85"]
+CMD ["sh", "-c", "alembic upgrade head && python -m pytest tests/ -v --cov=. --cov-report=term-missing --cov-report=html --cov-fail-under=85"]

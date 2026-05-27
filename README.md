@@ -85,12 +85,14 @@ make seed-demo # заполнить БД демо-данными (товары, 
 ### Тесты
 
 ```bash
-make test # полный прогон с coverage (изолированная БД, Docker-only)
+make test      # полный прогон с coverage (изолированная БД, Docker-only)
 make test-fast # быстрый прогон, стоп на первой ошибке
-make lint # ruff lint
+make test-cov  # тесты + HTML-отчёт coverage → backend/htmlcov/index.html
+make lint      # ruff lint
 ```
 
 `make test` поднимает чистую тестовую БД в Docker, прогоняет тесты и сносит её.
+`make test-cov` делает то же самое и сохраняет HTML-отчёт покрытия в `backend/htmlcov/`.
 
 ### Прочее
 

@@ -1,4 +1,4 @@
-.PHONY: help dev down logs shell migrate seed seed-demo test test-fast lint prod backup restore install-hooks
+.PHONY: help dev down logs shell migrate seed seed-demo test test-fast test-cov lint prod backup restore install-hooks
 
 help: ## Показать список команд
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -34,6 +34,14 @@ test: ## Полный прогон тестов с coverage (изолирова�
 
 test-fast: ## Тесты без coverage, стоп на первой ошибке
 	@PYTEST_ARGS="pytest tests/ -x -q" bash scripts/run_tests.sh
+
+test-cov: ## Тесты + HTML-отчёт coverage → backend/htmlcov/
+	@docker compose -f docker-compose.test.yml build test-runner
+	@docker compose -f docker-compose.test.yml run --rm \
+		-v "$(PWD)/backend/htmlcov:/app/htmlcov" \
+		test-runner
+	@docker compose -f docker-compose.test.yml down -v --remove-orphans 2>/dev/null || true
+	@echo "Отчёт: backend/htmlcov/index.html"
 
 # ── Код ───────────────────────────────────────────────────────────────────────
 
